@@ -208,6 +208,10 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Query")
+		case "__schema":
+			out.Values[i] = ec.introspectSchema(ctx, field)
+		case "__type":
+			out.Values[i] = ec.introspectType(ctx, field)
 		case "orders":
 			out.Values[i] = ec._Query_orders(ctx, field)
 			if out.Values[i] == graphql.Null {
@@ -329,6 +333,18 @@ func (ec *executionContext) _Order_Tax(ctx context.Context, field graphql.Collec
 
 func (ec *executionContext) _Order_FinalPrice(ctx context.Context, field graphql.CollectedField, obj *model.Order) graphql.Marshaler {
 	return graphql.MarshalFloat(obj.FinalPrice)
+}
+
+func (ec *executionContext) introspectSchema(ctx context.Context, field graphql.CollectedField) graphql.Marshaler {
+	// Introspection not fully implemented in manual generation
+	// Use gqlgen generate to get full introspection support
+	return graphql.Null
+}
+
+func (ec *executionContext) introspectType(ctx context.Context, field graphql.CollectedField) graphql.Marshaler {
+	// Introspection not fully implemented in manual generation
+	// Use gqlgen generate to get full introspection support
+	return graphql.Null
 }
 
 func (ec *executionContext) unmarshalNOrderInput2githubᚗcomᚋcgalimbertiᚋgocleanarcᚋ20ᚑCleanArchᚋinternalᚋinfraᚋgraphᚋmodelᚐOrderInput(ctx context.Context, v interface{}) (model.OrderInput, error) {
